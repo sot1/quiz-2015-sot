@@ -14,11 +14,26 @@ exports.load = function(req, res, next, quizId) {
 
 // GET /quizes
 exports.index = function(req, res) {
-  models.Quiz.findAll().then(
-    function(quizes) {
-      res.render('quizes/index', { quizes: quizes});
+  var question = req.query.search;
+  if (question === undefined) {            // GET /quizes
+      models.Quiz.findAll().then(
+        function(quizes) {
+          res.render('quizes/index', { quizes: quizes});
+        }
+      ).catch(function(error) { next(error);})
+  } else {                        // GET /quizes?search=texto_a_buscar    
+    var array_question = question.split(" ");
+    var cadena = "%";
+    for (i in array_question) {
+      cadena += array_question[i] + "%";
     }
-  ).catch(function(error) { next(error);})
+
+    models.Quiz.findAll({where:["pregunta LIKE ?", cadena], order:"pregunta"}).then(
+      function(quizes) {
+        res.render('quizes/index', { quizes: quizes});
+      });
+  }
+
 };
 
 // GET /quizes/:id
