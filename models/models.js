@@ -42,7 +42,7 @@ sequelize.sync().then(function() {
         [ {pregunta: 'Capital de Italia',   respuesta: 'Roma'},
           {pregunta: 'Capital de Portugal', respuesta: 'Lisboa'},
           {pregunta: 'Capital de España', respuesta: 'Madrid'},
-          {pregunta: 'Resultado de la operación: 2+2', respuesta: '4'}          
+          {pregunta: 'Resultado de la operación: 2+2', respuesta: '4'}
         ]
       ).then(function(){console.log('Base de datos inicializada')});
     };
