@@ -100,7 +100,10 @@ exports.update = function(req, res) {
   req.quiz.pregunta  = req.body.quiz.pregunta;
   req.quiz.respuesta = req.body.quiz.respuesta;
   req.quiz.tema = req.body.quiz.tema;
-
+  var tema = req.body.quiz.tema;
+  if (tema !== "otro" && tema !== "humanidades" && tema !== "ocio" && tema !== "ciencia" && tema !== "tecnologia") {
+  		req.quiz.tema="otro";
+  }
   req.quiz
   .validate()
   .then(
