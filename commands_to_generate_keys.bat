@@ -1,7 +1,5 @@
-mkdir cert
-
-cd cert
-
+mkdir certs
+cd certs
 D:\Programacion\OpenSSL-Win64\bin\openssl genrsa -out quiz-2015-key.pem 2048
 
 D:\Programacion\OpenSSL-Win64\bin\openssl req -new -sha256 -key quiz-2015-key.pem -out quiz-2015-csr.pem
