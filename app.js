@@ -41,6 +41,24 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Autologout
+app.use(function(req, res, next) {
+  if(req.session.user) {    // Vefirica que hay una sesión abierta
+    if(!req.session.timestamp) {  // Si timestamp no existe
+      req.session.timestamp = (new Date()).getTime(); // lo crea
+    } else {
+      if((new Date).getTime() -  req.session.timestamp > 120000) { // Si pasaron los dos minutos
+        delete req.session.user;  // Elimina la sesión
+        req.session.timestamp = 0;
+      } else {
+        req.session.timestamp = (new Date).getTime(); // Vuelve a setear el timestamp
+      }
+    }
+  }
+  next();
+});
+
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
